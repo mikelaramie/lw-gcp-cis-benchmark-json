@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 lacework_tenant=$2
+lacework_subaccount=$3
 
 #Set data strings
 disable_cis_10='{"GCP_CIS_1_1": "disable","GCP_CIS_1_2": "disable","GCP_CIS_1_3": "disable","GCP_CIS_1_4": "disable","GCP_CIS_1_5": "disable","GCP_CIS_1_6": "disable","GCP_CIS_1_7": "disable","GCP_CIS_1_8": "disable","GCP_CIS_1_9": "disable","GCP_CIS_1_10": "disable","GCP_CIS_1_11": "disable","GCP_CIS_1_12": "disable","GCP_CIS_1_13": "disable","GCP_CIS_2_1": "disable","GCP_CIS_2_2": "disable","GCP_CIS_2_3": "disable","GCP_CIS_2_4": "disable","GCP_CIS_2_5": "disable","GCP_CIS_2_6": "disable","GCP_CIS_2_7": "disable","GCP_CIS_2_8": "disable","GCP_CIS_2_9": "disable","GCP_CIS_2_10": "disable","GCP_CIS_2_11": "disable","GCP_CIS_3_1": "disable","GCP_CIS_3_2": "disable","GCP_CIS_3_3": "disable","GCP_CIS_3_4": "disable","GCP_CIS_3_5": "disable","GCP_CIS_3_6": "disable", "GCP_CIS_3_7": "disable", "GCP_CIS_3_8": "disable", "GCP_CIS_4_1": "disable", "GCP_CIS_4_2": "disable", "GCP_CIS_4_3": "disable", "GCP_CIS_4_4": "disable", "GCP_CIS_4_5": "disable", "GCP_CIS_4_6": "disable", "GCP_CIS_5_1": "disable", "GCP_CIS_5_2": "disable", "GCP_CIS_5_3": "disable", "GCP_CIS_6_1": "disable", "GCP_CIS_6_2": "disable", "GCP_CIS_6_3": "disable", "GCP_CIS_6_4": "disable", "GCP_CIS_7_1": "disable", "GCP_CIS_7_2": "disable", "GCP_CIS_7_3": "disable", "GCP_CIS_7_4": "disable", "GCP_CIS_7_5": "disable", "GCP_CIS_7_6": "disable", "GCP_CIS_7_7": "disable", "GCP_CIS_7_8": "disable", "GCP_CIS_7_9": "disable", "GCP_CIS_7_10": "disable", "GCP_CIS_7_11": "disable", "GCP_CIS_7_12": "disable", "GCP_CIS_7_13": "disable", "GCP_CIS_7_14": "disable", "GCP_CIS_7_15": "disable", "GCP_CIS_7_16": "disable", "GCP_CIS_7_17": "disable", "GCP_CIS_7_18": "disable" }'
@@ -10,16 +11,16 @@ enable_cis_12='{"GCP_CIS12_1_1": "enable","GCP_CIS12_1_2": "enable","GCP_CIS12_1
 case $1 in
 "disable_cis_10")
   #Disable GCP CIS 1.0 checks
-  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) -d ${disable_cis_10} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp 
+  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) --header 'Account-name: '${lacework_subaccount} -d ${disable_cis_10} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp 
   ;;
 "disable_cis_12")
   #Disable GCP CIS 1.2 checks
-  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) -d ${disable_cis_12} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp 
+  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) --header 'Account-name: '${lacework_subaccount} -d ${disable_cis_12} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp 
   ;;
 "enable_cis_12")
   #Enable GCP CIS 1.2 checks
-  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) -d ${enable_cis_12} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp
+  curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(lacework access-token) --header 'Account-name: '${lacework_subaccount} -d ${enable_cis_12} https://${lacework_tenant}.lacework.net/api/v1/external/recommendations/gcp
   ;;
 *) 
-  echo "Syntax:  gcp-cis-config.sh [disable_cis_10|disable_cis_12|enable_cis_12] [lacework-tenant]"
+  echo "Syntax:  gcp-cis-config.sh [disable_cis_10|disable_cis_12|enable_cis_12] [lacework-tenant] [lacework-subaccount]"
 esac
