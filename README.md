@@ -12,4 +12,5 @@ Where the first argument is the action you wish to perform, the second argument 
 # Further information
 
 `lacework-tenant` If you are in the Frankfurt datacenter you need to specify this as `tenant.fra`
+
 `lacework-subaccount` If you Lacework tenant is enrolled in an organization then you need to specify the name of the subaccount. If this is not the case then ignore the third argument.
